@@ -38,13 +38,21 @@ grad = zeros(size(theta));
 
 
 
+gOfZ = sigmoid(X * theta);
+% y
+
+tempJ = -1 .* y' * log(gOfZ);
+tempJ2 = (1-y)' * log(1 - gOfZ);
+J = sum(tempJ - tempJ2) / m;
+
+grad = (X' * (gOfZ - y)) / m;
 
 
-
-
-
-
-
+% Now add regularization!!:)
+J = J + (lambda / (2 * m)) * sum(theta(2:end,1).^2);
+% X(:,2:end)
+% grad(2:end,:);
+grad(2:end,1) = grad(2:end,1) + (lambda / m) * theta(2:end,1);
 % =============================================================
 
 grad = grad(:);
