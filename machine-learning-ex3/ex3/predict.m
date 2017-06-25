@@ -20,10 +20,23 @@ p = zeros(size(X, 1), 1);
 %       information see 'help max'. If your examples are in rows, then, you
 %       can use max(A, [], 2) to obtain the max for each row.
 %
+% size(X)
+% size(Theta1)
+tempX = [ones(m, 1) X];
+% m
+% num_labels;
+% % size(Theta1)
+% size(Theta2)
 
-
-
-
+sigmoid(tempX(1,:) * Theta1')
+for i=1:m
+    a = sigmoid(tempX(i,:) * Theta1');
+    a = [ones(1, 1) a];
+%     size(a)
+    a = sigmoid(a * Theta2');
+    [Y,I] = max(a);
+    p(i) = I;
+end
 
 
 
