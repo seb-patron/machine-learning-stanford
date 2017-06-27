@@ -108,24 +108,17 @@ J = 1/m * J;
 %               and Theta2_grad from Part 2.
 %
 sum1 = 0;
-theta1Rows = size(Theta1, 1);
-theta1Cols = size(Theta1, 2);
-for j=1:theta1Rows
+for j=1:hidden_layer_size
     
-    for k=2:theta1Cols
-        sum1 = sum1 + (Theta1(j,k)^2);
+    for k=1:input_layer_size
+        sum1 = sum1 + Theta1(j,k)
     end
 end
-
-% set vars for function to work, including getting dimensions
-% to use as number of iterations
 sum2 = 0;
-theta2Rows = size(Theta2, 1);
-theta2Cols = size(Theta2, 2);
-for j=1:theta2Rows
+for j=1:num_labels
     
-    for k=2:theta2Cols
-        sum2 = sum2 + (Theta2(j,k)^2);
+    for k=1:hidden_layer_size
+        sum2 = sum2 + Theta2(j,k)
     end
 end
 sum1
@@ -133,6 +126,11 @@ sum2
 regularization = lambda / (2 * m) * (sum1 + sum2)
 J = J + regularization
 
+fprintf('theta1 size')
+size(Theta1)
+fprintf('theta2 size')
+size(Theta2)
+Thet
 
 
 
