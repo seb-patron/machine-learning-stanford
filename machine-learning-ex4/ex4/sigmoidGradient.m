@@ -15,10 +15,14 @@ g = zeros(size(z));
 
 
 
+iters = size(g,1);
+% fprintf('size of g')
+% size(g)
+
+    g = sigmoid(z) .*(1 - sigmoid(z));
 
 
-
-
+% size(g)
 
 
 

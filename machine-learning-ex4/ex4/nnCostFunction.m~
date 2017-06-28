@@ -100,6 +100,64 @@ J = 1/m * J;
 %               over the training examples if you are implementing it for the 
 %               first time.
 %
+% bigDelt = zeros(3,1)
+fprintf('size theta2')
+size(Theta2)
+for i=1:m
+    % ------ NOTE!! ------------
+    % a2 is actually renamed from a1, a3 is renamed from a2
+    % in future code can be refactored to us prev found values in
+    % above equation
+    
+    % input layer l=1
+    a1 = tempX(i,:);
+    a1 = [ones(1, 1) + a1];
+    
+    % hidden layer l=2
+    z2 = a1 * Theta1';
+    a2 = sigmoid(z2);
+    a2 = [ones(1, 1) a2];
+    
+    % hidden layer l=3
+    z3 = a2 * Theta2';
+    a3 = sigmoid(z3);
+%     a3(i,:) = a2;
+    % Step 2 in pdf
+%     fprintf('a3 size')
+%     size(a3)
+    delta3 = zeros(1, num_labels);
+    for k=1:num_labels
+        if y(i) == k
+                yVal = 1;
+            else
+                yVal = 0;
+        end
+        delta3(k) = a3(k) - yVal;
+            
+    end
+%     yy = ([1:num_labels]==y(i))';
+	% For the delta values:
+% 	delta3 = a3 - yy;
+    delta3
+    a3
+    % STEP 3 in pdf
+%     size(z2)
+size(delta3)
+size(z2)
+size
+delta3 * Theta2(:,2:end)
+    delta2 = (delta3 * Theta2(:,2:end)) .* [sigmoidGradient(z2)];
+%     delta2 = delta3 * Theta2  .* sigmoidGradient(z2)'
+     delta2 = [ones(1, 1) delta2];
+    
+    
+    Theta1_grad = Theta1_grad * delta2*a1'
+%     size(delta2)
+    % STEP 4 in pdf
+%     bigDelt(1) = bigDelt(1) + delta2 .* a2';
+
+end
+
 % Part 3: Implement regularization with the cost function and gradients.
 %
 %         Hint: You can implement this around the code for
@@ -108,32 +166,34 @@ J = 1/m * J;
 %               and Theta2_grad from Part 2.
 %
 sum1 = 0;
-for j=1:hidden_layer_size
+theta1Rows = size(Theta1, 1);
+theta1Cols = size(Theta1, 2);
+for j=1:theta1Rows
     
-    for k=1:input_layer_size
-        sum1 = sum1 + Theta1(j,k)
+    for k=2:theta1Cols
+        sum1 = sum1 + (Theta1(j,k)^2);
     end
 end
+
+% set vars for function to work, including getting dimensions
+% to use as number of iterations
 sum2 = 0;
-for j=1:num_labels
+theta2Rows = size(Theta2, 1);
+theta2Cols = size(Theta2, 2);
+for j=1:theta2Rows
     
-    for k=1:hidden_layer_size
-        sum2 = sum2 + Theta2(j,k)
+    for k=2:theta2Cols
+        sum2 = sum2 + (Theta2(j,k)^2);
     end
 end
-sum1
-sum2
-regularization = lambda / (2 * m) * (sum1 + sum2)
-J = J + regularization
-
-fprintf('theta1 size')
-size(Theta1)
-fprintf('theta2 size')
-size(Theta2)
-Thet
+% sum1
+% sum2
+regularization = lambda / (2 * m) * (sum1 + sum2);
+J = J + regularization;
 
 
 
+% fprintf('size of a1')
 
 
 
