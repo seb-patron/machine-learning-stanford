@@ -39,13 +39,22 @@ Theta_grad = zeros(size(Theta));
 %        Theta_grad - num_users x num_features matrix, containing the 
 %                     partial derivatives w.r.t. to each element of Theta
 %
+% J = 0.5 * 
+J = 1/2 * sum(sum( ((X * Theta') - Y).^2 .*R));
 
 
+X_grad =  ((X * Theta') - Y) .*R * Theta;
+Theta_grad =  ((X * Theta' - Y) .*R)' * X;
+
+% This is the code for outputted ratings
+% ((X * Theta') - Y).^2 .*R
 
 
+% Regularization:
+J = J + (lambda/2* sum( sum(Theta.^2 )) ) + (lambda/2* sum( sum(X.^2 )) );
 
-
-
+X_grad = X_grad + (lambda * X);
+Theta_grad = Theta_grad + (lambda * Theta);
 
 
 

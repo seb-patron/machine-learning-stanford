@@ -23,7 +23,17 @@ for epsilon = min(pval):stepsize:max(pval)
     % Note: You can use predictions = (pval < epsilon) to get a binary vector
     %       of 0's and 1's of the outlier predictions
 
-
+%     [mu sigma2] = estimateGaussian(pval)
+    predictions = (pval < epsilon);
+    tp = sum( (predictions == 1) & (yval == 1)); %True positive
+    fp = sum( (predictions == 1) & (yval == 0)); % False positive
+    fn = sum( (predictions == 0) & (yval == 1)); % False negative
+    precision = tp / (tp + fp);
+    recall = tp / (tp + fn);
+    
+    F1 = (2 * precision * recall) / (precision + recall);
+    
+    
 
 
 
