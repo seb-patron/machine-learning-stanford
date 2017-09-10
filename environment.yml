@@ -1,0 +1,21 @@
+dependencies:
+ - python=3.6
+ - numpy
+ - scipy
+ - scikit-learn
+ - jupyter
+ - requests
+ - pandas
+ - seaborn
+ - click
+ - openpyxl
+ - nb_conda
+ - flake8
+ - coverage
+ - sphinx
+ - matplotlib
+ - pip:
+   - watermark
+   - pytest
+   - surprise
+   - python-dotenv>=0.5.1
